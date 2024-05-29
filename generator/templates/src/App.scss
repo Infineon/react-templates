@@ -1,0 +1,5 @@
+@use '~@ifxglobal/my-global-design-tokens/tokens.scss';
+
+body {
+  background-color: tokens.$ifxColorBaseWhite;
+}

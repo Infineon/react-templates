@@ -1,71 +1,84 @@
+#!/usr/bin/env node
+const fs = require('fs');
+const path = require('path');
+const inquirer = require('inquirer');
+const ejs = require('ejs');
 const { consoleLogger } = require("../consoleLogger");
+const prompts = require('../prompts');
 
-module.exports = function (api, options) {
-  let promptResults = options;
+function copyFiles(sourceDir, targetDir) {
+  const filesToCreate = fs.readdirSync(path.resolve(__dirname, sourceDir));
+
+  filesToCreate.forEach((file) => {
+    const origFilePath = path.resolve(__dirname, sourceDir, file);
+
+    if (fs.lstatSync(origFilePath).isDirectory()) {
+      return;
+    }
+
+    const contents = fs.readFileSync(origFilePath, 'utf8');
+    const writePath = path.resolve(targetDir, file);
+    fs.writeFileSync(writePath, contents, 'utf8');
+  });
+}
+
+inquirer.prompt(prompts).then((promptResults) => {
   consoleLogger(promptResults);
-  /**mandatory dependencies */
+
   let dependencies = {
-    "@ifxglobal/my-global-design-tokens": "^1.4.0",
     "@infineon/infineon-design-system-react": "^21.8.3",
-    "babel-eslint": "^10.1.0",
-    "core-js": "^3.8.3",
-    sass: "^1.69.5",
-    "sass-loader": "^13.3.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
     "react-router": "^6.23.1",
     "react-router-dom": "^6.23.1",
-    "web-vitals": "^2.1.4"
   };
 
-  if(promptResults.authRequired === "Authentication using MIAMI (OAuth)") {
+  let devDependencies = {
+    "@babel/core": "^7.23.5",
+    "@babel/eslint-parser": "^7.23.3",
+    "@babel/preset-react": "^7.24.1",
+    "eslint": "^7.32.0",
+    "eslint-plugin-react": "^7.34.1"
+  };
+
+  if(promptResults.authRequired) {
     dependencies["@miami/miami"] = "^1.1.0"
+    devDependencies["axios"] = "^1.6.4";
+    devDependencies["react-toastify"] = "^10.0.5";
+    devDependencies["concurrently"]= "^8.2.2";
   }
 
-    /**mandatory dev dependencies */
-    let devDependencies = {
-      "@babel/core": "^7.23.5",
-      "@babel/eslint-parser": "^7.23.3",
-      "@babel/preset-react": "^7.24.1",
-      "eslint": "^7.32.0",
-      "eslint-plugin-react": "^7.34.1"
-    };
+  const projectPackageJsonPath = path.resolve(process.cwd(), 'package.json'); 
+  const projectPackageJson = JSON.parse(fs.readFileSync(projectPackageJsonPath, 'utf8'));
 
-    if(promptResults.authRequired != "No Authentication") {
-      devDependencies["axios"] = "^1.6.4";
-      devDependencies["react-toastify"] = "^10.0.5";
-      devDependencies["concurrently"]= "^8.2.2";
-    }
+  projectPackageJson.dependencies = { ...projectPackageJson.dependencies, ...dependencies };
+  projectPackageJson.devDependencies = { ...projectPackageJson.devDependencies, ...devDependencies };
 
-  api.extendPackage({
-    version: promptResults.version || "0.1.0",
-    dependencies: dependencies,
-    devDependencies: devDependencies,
+  const additionalScripts = {
+    start: promptResults.authRequired ? "concurrently \"npm run start:dev\" \"npm run start:serve\"" : "react-scripts start",
+    "start:dev": "PORT=8080 react-scripts start",
+    build: "react-scripts build",
+    "test:e2e": "playwright test",
+    lint: "eslint --ext .jsx,.js,.cjs,.mjs --fix --ignore-path .gitignore",
+    format: "prettier --write src/",
+  };
 
-    /*adding scripts for jest and jsdoc */
-    scripts: {
-      doc: "./node_modules/.bin/jsdoc src -r -c jsdoc_config.json -d documents",
-      ...(promptResults.authRequired === "Authentication using MIAMI (OAuth)" ? {
-        "start:dev": "PORT=8080 react-scripts start",
-        "start:serve": "docker compose up",
-        "start:both": "concurrently \"npm run start:dev\" \"npm run start:serve\"",
-        start: "npm run start:both",
-      } : {start:"PORT=8081 react-scripts start"}),
-      build: "react-scripts build",
-      "test:e2e": "playwright test",
-      lint: "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-      format: "prettier --write src/",
-    },
-  });
+  projectPackageJson.scripts = { ...projectPackageJson.scripts, ...additionalScripts };
 
-  if(promptResults.authRequired != "No Authentication") {
-    api.render("./templateFiles", {
-      promptResults,
-    });
+  if (promptResults.authRequired) {
+    projectPackageJson.scripts["start:serve"] = "docker compose up || echo 'Docker command failed. Please make sure you have Docker installed.'";
   }
-  
-  api.render("./templates", {
-    promptResults,
-  });
-};
+
+  fs.writeFileSync(projectPackageJsonPath, JSON.stringify(projectPackageJson, null, 2));
+
+  if(promptResults.authRequired) {
+    copyFiles(path.resolve(__dirname, './templateFiles'), process.cwd());
+  }
+
+  const template = fs.readFileSync(path.resolve(__dirname, './templates/src/components/TemplateLayout/templateLayout.ejs'), 'utf8');
+  const renderedTemplate = ejs.render(template, { promptResults });
+  fs.writeFileSync(path.join(process.cwd(), 'TemplateLayout.jsx'), renderedTemplate);
+
+  copyFiles(path.resolve(__dirname, './templates'), process.cwd());
+});
