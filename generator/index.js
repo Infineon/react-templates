@@ -5,17 +5,19 @@ const inquirer = require('inquirer');
 const ejs = require('ejs');
 const { consoleLogger } = require("../consoleLogger");
 const prompts = require('../prompts');
+const mkdirp = require('mkdirp');
 
 function copyFiles(sourceDir, targetDir) {
   const filesToCreate = fs.readdirSync(path.resolve(__dirname, sourceDir));
-
+  
   filesToCreate.forEach((file) => {
     const origFilePath = path.resolve(__dirname, sourceDir, file);
-
+    
+    // ignore directories
     if (fs.lstatSync(origFilePath).isDirectory()) {
       return;
     }
-
+    
     const contents = fs.readFileSync(origFilePath, 'utf8');
     const writePath = path.resolve(targetDir, file);
     fs.writeFileSync(writePath, contents, 'utf8');
@@ -42,7 +44,7 @@ inquirer.prompt(prompts).then((promptResults) => {
     "eslint-plugin-react": "^7.34.1"
   };
 
-  if(promptResults.authRequired) {
+  if(promptResults.authRequired !== "No Authentication") {
     dependencies["@miami/miami"] = "^1.1.0"
     devDependencies["axios"] = "^1.6.4";
     devDependencies["react-toastify"] = "^10.0.5";
@@ -51,24 +53,24 @@ inquirer.prompt(prompts).then((promptResults) => {
 
   const projectPackageJsonPath = path.resolve(process.cwd(), 'package.json'); 
   const projectPackageJson = JSON.parse(fs.readFileSync(projectPackageJsonPath, 'utf8'));
-
+  
   projectPackageJson.dependencies = { ...projectPackageJson.dependencies, ...dependencies };
   projectPackageJson.devDependencies = { ...projectPackageJson.devDependencies, ...devDependencies };
 
   const additionalScripts = {
-    start: promptResults.authRequired ? "concurrently \"npm run start:dev\" \"npm run start:serve\"" : "react-scripts start",
-    "start:dev": "PORT=8080 react-scripts start",
+    start: promptResults.authRequired !== "No Authentication" ? "concurrently \"npm run start:dev\" \"npm run start:serve\"" : "react-scripts start",
     build: "react-scripts build",
     "test:e2e": "playwright test",
     lint: "eslint --ext .jsx,.js,.cjs,.mjs --fix --ignore-path .gitignore",
     format: "prettier --write src/",
   };
 
-  projectPackageJson.scripts = { ...projectPackageJson.scripts, ...additionalScripts };
-
-  if (promptResults.authRequired) {
-    projectPackageJson.scripts["start:serve"] = "docker compose up || echo 'Docker command failed. Please make sure you have Docker installed.'";
+  if (promptResults.authRequired !== "No Authentication") {
+    additionalScripts["start:dev"] = "PORT=8080 react-scripts start";
+    additionalScripts["start:serve"] = "docker compose up || echo 'Docker command failed. Please make sure you have Docker installed.'";
   }
+
+  projectPackageJson.scripts = { ...projectPackageJson.scripts, ...additionalScripts };
 
   fs.writeFileSync(projectPackageJsonPath, JSON.stringify(projectPackageJson, null, 2));
 
@@ -78,7 +80,12 @@ inquirer.prompt(prompts).then((promptResults) => {
 
   const template = fs.readFileSync(path.resolve(__dirname, './templates/src/components/TemplateLayout/templateLayout.ejs'), 'utf8');
   const renderedTemplate = ejs.render(template, { promptResults });
-  fs.writeFileSync(path.join(process.cwd(), 'TemplateLayout.jsx'), renderedTemplate);
+  
+  // Make sure the directory exists before attempting to write the file
+  const targetPath = path.join(process.cwd(), 'src/components/TemplateLayout.jsx');
+  mkdirp.sync(path.dirname(targetPath)); 
+  
+  fs.writeFileSync(targetPath, renderedTemplate);
 
   copyFiles(path.resolve(__dirname, './templates'), process.cwd());
 });
