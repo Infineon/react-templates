@@ -1,0 +1,48 @@
+import React, { useEffect, useState } from 'react';
+import LayoutContent from "./LayoutContent";
+import SideBar from "./SideBar";
+import NavBar from "./NavBar";
+<% if(promptResults.authRequired !== "No Authentication") { %>
+  import ProfileIcon from "./ProfileIcon";
+<% } %>
+
+function TemplateLayout() {
+  const [userName, setUserName] = useState("");
+  const [userNameShort, setUserNameShort] = useState("");
+
+  useEffect(() => {
+  // assuming you have a way to dynamically import MIAMI when needed
+  <% if(promptResults.authRequired === "Authentication using MIAMI (OAuth)") { %>
+    MIAMI.getTokenPayload()
+      .then((payload) => {
+          const {firstName, lastName} = payload || {};
+          setUserName(`${firstName} ${lastName}`);
+          setUserNameShort(firstName[0] + lastName[0]);
+      })
+      .catch((error) => {
+        ShowToaster(error.message);
+      });
+  <% } %>
+  }, []);
+
+  return (
+    <div className={promptResults.isSideBarRequired === "Vertical Menu" ? "dds-template-layout" : "dds-layout-with-header-layout"}>
+    <% if(promptResults.isSideBarRequired === "Vertical Menu") { %>
+      <SideBar />
+      <div className="dds-layout-content-layout">
+        // other content omitted for brevity
+        <% if(promptResults.authRequired !== "No Authentication") { %>
+        <ProfileIcon userNameShort={userNameShort} userName={userName} />
+        <% } %>
+      </div>
+    <% } else { %>
+      <NavBar />
+      <div className="dds-layout-with-header-layout-content">
+        <LayoutContent />
+      </div>
+    <% } %>
+    </div>
+  );
+}
+
+export default TemplateLayout;
