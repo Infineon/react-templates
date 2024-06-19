@@ -16,6 +16,10 @@ function copyDirectory(src, dest) {
     let srcPath = path.join(src, entry.name);
     let destPath = path.join(dest, entry.name);
 
+    if (entry.name === 'Toaster.js') {
+      return;
+    }
+
     if (entry.isDirectory()) {
       copyDirectory(srcPath, destPath);
     } else if (path.extname(entry.name).toLowerCase() !== '.ejs') {
@@ -110,9 +114,7 @@ function processEjsTemplates(srcComponentsPath, promptResults) {
 
     if (entry.isDirectory()) {
       // Recursively process subdirectories
-      //here, if it is a directory, we have to go inside, and get the file! and then pass the path!
-      console.log('fullPath', fullPath)
- 
+   
       processEjsTemplates(fullPath, promptResults);
     
     } else if (path.extname(entry.name).toLowerCase() === '.ejs') {
