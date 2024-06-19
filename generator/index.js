@@ -7,20 +7,20 @@ const { consoleLogger } = require("../consoleLogger");
 const prompts = require('../prompts');
 const mkdirp = require('mkdirp');
 
-function copyFiles(sourceDir, targetDir) {
-  const filesToCreate = fs.readdirSync(path.resolve(__dirname, sourceDir));
-  
-  filesToCreate.forEach((file) => {
-    const origFilePath = path.resolve(__dirname, sourceDir, file);
-    
-    // ignore directories
-    if (fs.lstatSync(origFilePath).isDirectory()) {
-      return;
+// Updated function to copy directories and their contents
+function copyDirectory(src, dest) {
+  mkdirp.sync(dest);
+  let entries = fs.readdirSync(src, { withFileTypes: true });
+
+  entries.forEach(entry => {
+    let srcPath = path.join(src, entry.name);
+    let destPath = path.join(dest, entry.name);
+
+    if (entry.isDirectory()) {
+      copyDirectory(srcPath, destPath);
+    } else if (path.extname(entry.name).toLowerCase() !== '.ejs') {
+      fs.copyFileSync(srcPath, destPath);
     }
-    
-    const contents = fs.readFileSync(origFilePath, 'utf8');
-    const writePath = path.resolve(targetDir, file);
-    fs.writeFileSync(writePath, contents, 'utf8');
   });
 }
 
@@ -74,18 +74,62 @@ inquirer.prompt(prompts).then((promptResults) => {
 
   fs.writeFileSync(projectPackageJsonPath, JSON.stringify(projectPackageJson, null, 2));
 
-  if(promptResults.authRequired) {
-    copyFiles(path.resolve(__dirname, './templateFiles'), process.cwd());
-  }
+  const templatesSrcPath = path.resolve(__dirname, './templates/src');
+  const projectSrcPath = path.resolve(process.cwd(), 'src');
+  copyDirectory(templatesSrcPath, projectSrcPath);
 
-  const template = fs.readFileSync(path.resolve(__dirname, './templates/src/components/TemplateLayout/templateLayout.ejs'), 'utf8');
-  const renderedTemplate = ejs.render(template, { promptResults });
-  
-  // Make sure the directory exists before attempting to write the file
-  const targetPath = path.join(process.cwd(), 'src/components/TemplateLayout.jsx');
-  mkdirp.sync(path.dirname(targetPath)); 
-  
-  fs.writeFileSync(targetPath, renderedTemplate);
+  const templateFilesPath = path.resolve(__dirname, './templateFiles');
+  const projectRootPath = process.cwd();
+  copyDirectory(templateFilesPath, projectRootPath);
 
-  copyFiles(path.resolve(__dirname, './templates'), process.cwd());
+
+
+  
+  const componentsPath = path.resolve(__dirname, 'templates/src/components');
+  processEjsTemplates(componentsPath, promptResults);
+
+
+
+  // const template = fs.readFileSync(path.resolve(__dirname, './templates/src/components/TemplateLayout/TemplateLayout.ejs'), 'utf8');
+  // const renderedTemplate = ejs.render(template, { promptResults });
+
+  // const targetPath = path.join(process.cwd(), 'src/components/TemplateLayout.jsx');
+  // mkdirp.sync(path.dirname(targetPath)); 
+
+  // fs.writeFileSync(targetPath, renderedTemplate);
+
 });
+
+
+function processEjsTemplates(srcComponentsPath, promptResults) {
+
+  const entries = fs.readdirSync(srcComponentsPath, { withFileTypes: true });
+
+  for (let entry of entries) {
+    const fullPath = path.join(srcComponentsPath, entry.name);
+
+    if (entry.isDirectory()) {
+      // Recursively process subdirectories
+      //here, if it is a directory, we have to go inside, and get the file! and then pass the path!
+      console.log('fullPath', fullPath)
+ 
+      processEjsTemplates(fullPath, promptResults);
+    
+    } else if (path.extname(entry.name).toLowerCase() === '.ejs') {
+      // If the entry is an .ejs file
+ 
+      const template = fs.readFileSync(fullPath, 'utf8');
+      const renderedTemplate = ejs.render(template, { promptResults });
+
+      // Get the base name of the template without the extension
+      const componentName = path.basename(entry.name, '.ejs');
+      const targetDir = path.join(process.cwd(), 'src/components', componentName);
+      const targetPath = path.join(targetDir, `${componentName}.jsx`);
+
+      mkdirp.sync(targetDir);
+      
+      fs.writeFileSync(targetPath, renderedTemplate);
+    
+    }
+  }
+}
