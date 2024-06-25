@@ -31,6 +31,13 @@ function copyDirectory(src, dest) {
 inquirer.prompt(prompts).then((promptResults) => {
   consoleLogger(promptResults);
 
+    // This is for the other approach where I pass the prompResults to jsx.
+    const configString = `export default ${JSON.stringify(promptResults)};`;
+    const configPath = path.join(process.cwd(), 'src', 'config.js');
+    fs.writeFileSync(configPath, configString);
+
+
+
   let dependencies = {
     "@infineon/infineon-design-system-react": "^21.8.3",
     "react": "^18.3.1",

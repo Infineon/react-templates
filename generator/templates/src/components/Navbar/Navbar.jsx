@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useEffect} from 'react';
 import { IfxNavbar, IfxNavbarItem, IfxNavbarProfile, IfxSearchBar } from '@infineon/infineon-design-system-react';
+import config from '../../config';
 
 function Navbar() {
+
+  useEffect(() => { 
+    console.log('config', config)
+  }) 
+
   return (
     <div>
       <IfxNavbar  show-logo-and-appname="true" application-name="Application name" fixed="undefined" logo-href="http://google.com" logo-href-target="_self">
