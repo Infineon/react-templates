@@ -45,6 +45,7 @@ inquirer.prompt(prompts).then((promptResults) => {
     "react-scripts": "5.0.1",
     "react-router": "^6.23.1",
     "react-router-dom": "^6.23.1",
+    "sass": "^1.77.6",
   };
 
   let devDependencies = {
@@ -101,10 +102,10 @@ inquirer.prompt(prompts).then((promptResults) => {
 
 
 
-  // const template = fs.readFileSync(path.resolve(__dirname, './templates/src/components/TemplateLayout/TemplateLayout.ejs'), 'utf8');
+  // const template = fs.readFileSync(path.resolve(__dirname, './templates/src/components/HomePage/HomePage.ejs'), 'utf8');
   // const renderedTemplate = ejs.render(template, { promptResults });
 
-  // const targetPath = path.join(process.cwd(), 'src/components/TemplateLayout.jsx');
+  // const targetPath = path.join(process.cwd(), 'src/components/HomePage.jsx');
   // mkdirp.sync(path.dirname(targetPath)); 
 
   // fs.writeFileSync(targetPath, renderedTemplate);

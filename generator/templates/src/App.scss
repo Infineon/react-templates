@@ -1,5 +1,6 @@
-@use '~@ifxglobal/my-global-design-tokens/tokens.scss';
+@use "~@infineon/design-system-tokens/dist/tokens";
 
 body {
   background-color: tokens.$ifxColorBaseWhite;
+  // --ifx-font-family: 'Arial black'; //overwrite default font
 }

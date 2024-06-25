@@ -1,0 +1,63 @@
+import React, { useEffect, useState } from 'react';
+import Table from '../Table/Table';
+import Sidebar from '../Sidebar/Sidebar';
+import Button from '../Button/Button';
+import Navbar from '../Navbar/Navbar';
+import Card from '../Card/Card';
+import './homePage.scss'
+
+function HomePage() {
+  const [userName, setUserName] = useState("");
+  const [userNameShort, setUserNameShort] = useState("");
+
+  useEffect(() => {
+  <% if(promptResults.authRequired === "Authentication using MIAMI (OAuth)") { %>
+    MIAMI.getTokenPayload()
+      .then((payload) => {
+          const {firstName, lastName} = payload || {};
+          setUserName(`${firstName} ${lastName}`);
+          setUserNameShort(firstName[0] + lastName[0]);
+      })
+      .catch((error) => {
+        ShowToaster(error.message);
+      });
+  <% } %>
+  }, []);
+
+  return (
+    <div className='container'>
+      <div className="sidebar__wrapper">
+        <% if(promptResults.isSideBarRequired === "Vertical Menu") { %>
+          <Sidebar /> 
+          <% } %>
+      </div>
+      <div className="right__side-wrapper">
+        <div className="top__wrapper">
+          <% if(promptResults.isSideBarRequired === "Horizontal Menu") { %>
+            <div className="navbar__wrapper">
+              <Navbar />
+            </div>
+            <% } %>
+          <div className="card__wrapper">
+            <Card direction='horizontal' />
+            <h2>Important headline related to the Card</h2>
+          </div>
+        </div>
+        <div className="main__content-wrapper">
+          <div className="header__wrapper">
+            <h3 className="title__wrapper">Important Data</h3>
+            <div className="buttons__wrapper">
+              <Button variant='primary' />
+              <Button variant='secondary' />
+            </div>
+          </div>
+          <div className="table__wrapper">
+            <Table />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default HomePage;
