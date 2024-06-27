@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import Table from '../Table/Table';
 import Sidebar from '../Sidebar/Sidebar';
 import Button from '../Button/Button';
@@ -7,22 +6,6 @@ import Card from '../Card/Card';
 import './homePage.scss'
 
 function HomePage() {
-  const [userName, setUserName] = useState("");
-  const [userNameShort, setUserNameShort] = useState("");
-
-  useEffect(() => {
-  <% if(promptResults.authRequired === "Authentication using MIAMI (OAuth)") { %>
-    MIAMI.getTokenPayload()
-      .then((payload) => {
-          const {firstName, lastName} = payload || {};
-          setUserName(`${firstName} ${lastName}`);
-          setUserNameShort(firstName[0] + lastName[0]);
-      })
-      .catch((error) => {
-        ShowToaster(error.message);
-      });
-  <% } %>
-  }, []);
 
   return (
     <div className='container'>

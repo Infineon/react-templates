@@ -8,7 +8,7 @@ const prompts = require('../prompts');
 const mkdirp = require('mkdirp');
 
 // Updated function to copy directories and their contents
-function copyDirectory(src, dest) {
+function copyDirectory(src, dest, auth) {
   mkdirp.sync(dest);
   let entries = fs.readdirSync(src, { withFileTypes: true });
 
@@ -16,8 +16,10 @@ function copyDirectory(src, dest) {
     let srcPath = path.join(src, entry.name);
     let destPath = path.join(dest, entry.name);
 
-    if (entry.name === 'Toaster.js') {
-      return;
+    if(auth === "No Authentication") {
+      if(entry.name === 'Dockerfile') { 
+        return;
+      }
     }
 
     if (entry.isDirectory()) {
@@ -37,7 +39,6 @@ inquirer.prompt(prompts).then((promptResults) => {
     fs.writeFileSync(configPath, configString);
 
 
-
   let dependencies = {
     "@infineon/infineon-design-system-react": "^21.8.3",
     "react": "^18.3.1",
@@ -52,7 +53,8 @@ inquirer.prompt(prompts).then((promptResults) => {
     "@babel/core": "^7.23.5",
     "@babel/eslint-parser": "^7.23.3",
     "@babel/preset-react": "^7.24.1",
-    "eslint": "^7.32.0",
+    "eslint": "^8.0.0",
+    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-react": "^7.34.1"
   };
 
@@ -78,7 +80,7 @@ inquirer.prompt(prompts).then((promptResults) => {
   };
 
   if (promptResults.authRequired !== "No Authentication") {
-    additionalScripts["start:dev"] = "PORT=8080 react-scripts start";
+    additionalScripts["start:dev"] = "set PORT=8080 && react-scripts start";
     additionalScripts["start:serve"] = "docker compose up || echo 'Docker command failed. Please make sure you have Docker installed.'";
   }
 
@@ -94,21 +96,11 @@ inquirer.prompt(prompts).then((promptResults) => {
   const projectRootPath = process.cwd();
   copyDirectory(templateFilesPath, projectRootPath);
 
+  const templatesPath = path.resolve(__dirname, './templates');
+  copyDirectory(templatesPath, projectRootPath, promptResults.authRequired);
 
-
-  
   const componentsPath = path.resolve(__dirname, 'templates/src/components');
   processEjsTemplates(componentsPath, promptResults);
-
-
-
-  // const template = fs.readFileSync(path.resolve(__dirname, './templates/src/components/HomePage/HomePage.ejs'), 'utf8');
-  // const renderedTemplate = ejs.render(template, { promptResults });
-
-  // const targetPath = path.join(process.cwd(), 'src/components/HomePage.jsx');
-  // mkdirp.sync(path.dirname(targetPath)); 
-
-  // fs.writeFileSync(targetPath, renderedTemplate);
 
 });
 
