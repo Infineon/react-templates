@@ -1,5 +1,7 @@
 import Table from '../Table/Table';
+<% if(promptResults.isSideBarRequired === "Vertical Menu") { %>
 import Sidebar from '../Sidebar/Sidebar';
+<% } %>
 import Button from '../Button/Button';
 import Navbar from '../Navbar/Navbar';
 import Card from '../Card/Card';
@@ -16,11 +18,9 @@ function HomePage() {
       </div>
       <div className="right__side-wrapper">
         <div className="top__wrapper">
-          <% if(promptResults.isSideBarRequired === "Horizontal Menu") { %>
             <div className="navbar__wrapper">
               <Navbar />
             </div>
-            <% } %>
           <div className="card__wrapper">
             <Card direction='horizontal' />
             <h2>Important headline related to the Card</h2>
