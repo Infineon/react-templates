@@ -1,4 +1,5 @@
 import { IfxBasicTable } from '@infineon/infineon-design-system-react';
+import './table.scss';
 
 function Table() {
   return (

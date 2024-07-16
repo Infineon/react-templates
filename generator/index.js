@@ -40,7 +40,7 @@ inquirer.prompt(prompts).then((promptResults) => {
 
 
   let dependencies = {
-    "@infineon/infineon-design-system-react": "^21.8.3",
+    "@infineon/infineon-design-system-react": "^23.4.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",

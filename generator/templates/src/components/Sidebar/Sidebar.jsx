@@ -1,4 +1,5 @@
 import { IfxSidebar, IfxSidebarItem, IfxSidebarTitle } from '@infineon/infineon-design-system-react';
+import './sidebar.scss';
 
 function Sidebar() {
   return (

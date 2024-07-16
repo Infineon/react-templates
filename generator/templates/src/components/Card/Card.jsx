@@ -1,4 +1,5 @@
 import { IfxCard, IfxCardImage, IfxCardOverline, IfxCardHeadline, IfxCardLinks, IfxCardText, IfxButton } from '@infineon/infineon-design-system-react';
+import './card.scss';
 
 function Card({ direction }) {
   return (

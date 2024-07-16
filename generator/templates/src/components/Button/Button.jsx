@@ -1,4 +1,5 @@
 import { IfxButton } from '@infineon/infineon-design-system-react';
+import './button.scss';
 
 function Button( { variant }) {
   return (
