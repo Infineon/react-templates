@@ -59,7 +59,8 @@ inquirer.prompt(prompts).then((promptResults) => {
   };
 
   if(promptResults.authRequired !== "No Authentication") {
-    dependencies["@miami/miami"] = "^1.1.0"
+    dependencies["@miami/miami"] = "^1.1.0";
+    dependencies["craco"] = "^0.0.3";
     devDependencies["axios"] = "^1.6.4";
     devDependencies["react-toastify"] = "^10.0.5";
     devDependencies["concurrently"]= "^8.2.2";
@@ -72,15 +73,15 @@ inquirer.prompt(prompts).then((promptResults) => {
   projectPackageJson.devDependencies = { ...projectPackageJson.devDependencies, ...devDependencies };
 
   const additionalScripts = {
-    start: promptResults.authRequired !== "No Authentication" ? "concurrently \"npm run start:dev\" \"npm run start:serve\"" : "react-scripts start",
-    build: "react-scripts build",
+    start: promptResults.authRequired !== "No Authentication" ? "concurrently \"npm run start:dev\" \"npm run start:serve\"" : "craco start",
+    build: "craco build",
     "test:e2e": "playwright test",
     lint: "eslint --ext .jsx,.js,.cjs,.mjs --fix --ignore-path .gitignore",
     format: "prettier --write src/",
   };
 
   if (promptResults.authRequired !== "No Authentication") {
-    additionalScripts["start:dev"] = "set PORT=8080 && react-scripts start";
+    additionalScripts["start:dev"] = "set PORT=8080 && craco start";
     additionalScripts["start:serve"] = "docker compose up || echo 'Docker command failed. Please make sure you have Docker installed.'";
   }
 
