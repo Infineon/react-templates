@@ -16,10 +16,16 @@ npx --yes create-react-app@latest my-app
 
 ### Cloning of the React template repository
 
-**Paste this command in the terminal of your IDE**
+**1. Paste this command in the terminal of your IDE**
 
 ```bash
 git clone https://gitlab.intra.infineon.com/ifx/devgate/devgate-dev/react-template.git
+```
+
+**2. Open the cloned template, and run the following command**
+
+```bash
+npm install
 ```
 
 ### Installation of the React template 
