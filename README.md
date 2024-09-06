@@ -59,3 +59,10 @@ npx @ifx/react-plugin-wds-pegasus-template
 ```bash
 npm install
 ```
+
+### Using Authentication
+
+**1. Add your credentials in the .env file**
+**2. Start Docker**
+**3. Run the application**
+
