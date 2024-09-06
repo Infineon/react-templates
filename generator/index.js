@@ -73,8 +73,8 @@ inquirer.prompt(prompts).then((promptResults) => {
   projectPackageJson.devDependencies = { ...projectPackageJson.devDependencies, ...devDependencies };
 
   const additionalScripts = {
-    start: promptResults.authRequired !== "No Authentication" ? "concurrently \"npm run start:dev\" \"npm run start:serve\"" : "craco start",
-    build: "craco build",
+    start: promptResults.authRequired !== "No Authentication" ? "concurrently \"npm run start:dev\" \"npm run start:serve\"" : "react-scripts start",
+    build: promptResults.authRequired !== "No Authentication" ? "craco build" : "react-scripts build",
     "test:e2e": "playwright test",
     lint: "eslint --ext .jsx,.js,.cjs,.mjs --fix --ignore-path .gitignore",
     format: "prettier --write src/",
