@@ -1,0 +1,55 @@
+@use "~@infineon/design-system-tokens/dist/tokens";
+
+* { 
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.container { 
+  display: flex;
+  height: 100vh;
+  font-family: "Source Sans 3";
+  background-color: tokens.$ifxColorBaseWhite;
+}
+
+.right__side-wrapper { 
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  
+}
+
+.main__content-wrapper { 
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
+  overflow: auto;
+}
+
+.header__wrapper { 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttons__wrapper { 
+  display: flex;
+  gap: 5px;
+}
+
+.table__wrapper { 
+  // overflow: auto;
+}
+
+.card__wrapper { 
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
+  gap: 150px;
+  & h2 { 
+    width: 150px;
+  }
+}

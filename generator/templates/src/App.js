@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.scss';
-import TemplateLayout from './components/TemplateLayout/TemplateLayout'
+import HomePage from './components/HomePage/HomePage'
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<TemplateLayout />}/>
+        <Route path="/" element={<HomePage />}/>
       </Routes>
     </BrowserRouter>
   );
