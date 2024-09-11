@@ -20,6 +20,10 @@ function copyDirectory(src, dest, auth) {
       if(entry.name === 'Dockerfile') { 
         return;
       }
+
+      if(entry.name === 'craco.config.js') { 
+        return;
+      }
     }
 
     if (entry.isDirectory()) {
