@@ -126,7 +126,7 @@ function processEjsTemplates(srcComponentsPath, promptResults) {
       const renderedTemplate = ejs.render(template, { promptResults });
 
       // Get the base name of the template without the extension
-      const componentName = path.basename(entry.name, '.ejs');
+      const componentName = path.basename(entry.name, '.ejs' || entry.name.startsWith('.') );
       const targetDir = path.join(process.cwd(), 'src/components', componentName);
       const targetPath = path.join(targetDir, `${componentName}.jsx`);
 
