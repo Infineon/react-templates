@@ -17,9 +17,6 @@ function copyDirectory(src, dest, auth) {
     let destPath = path.join(dest, entry.name);
 
     if(auth === "No Authentication") {
-      if(entry.name === 'Dockerfile') { 
-        return;
-      }
 
       if(entry.name === 'craco.config.js') { 
         return;
@@ -28,7 +25,7 @@ function copyDirectory(src, dest, auth) {
 
     if (entry.isDirectory()) {
       copyDirectory(srcPath, destPath);
-    } else if (path.extname(entry.name).toLowerCase() !== '.ejs') {
+    } else if (path.extname(entry.name).toLowerCase() !== '.ejs' || entry.name.startsWith('.') ) {
       fs.copyFileSync(srcPath, destPath);
     }
   });
