@@ -1,0 +1,31 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: <%= promptResults.directoryName %>
+  description: |
+    React template via DevGate
+  annotations:
+    argocd/app-name: <%= promptResults.directoryName %>-gitops
+    backstage.io/kubernetes-id: devgate
+    sonarqube.org/project-key: des-spf-<%= promptResults.directoryName %>
+  tags:
+    - <%= promptResults.directoryName %>
+  links:
+    - title: Infineon
+      url: https://www.infineon.com/
+    - title: Prod Application URL
+      url: https://<%= promptResults.directoryName %>.icp.infineon.com
+    - title: Staging Application URL
+      url: https://<%= promptResults.directoryName %>-staging.icp.infineon.com
+    - title: DevSpace URL
+      url: https://devspaces.eu-at-8.icp.infineon.com/#https://gitlab.intra.infineon.com/ifx/devgate/devgate-dev/<%= promptResults.directoryName %>.git
+
+spec:
+  type: service
+  lifecycle: production
+  owner: devgate
+  system: devgate
+  dependsOn:
+    - resource:pgdb
+    - resource:tekton
+    - resource:bitbucket
