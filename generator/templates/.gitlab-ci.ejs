@@ -4,16 +4,16 @@ stages:
   - deploy_to_production
    
 variables:
-  APP_NAME: <%= promptResults.directoryName %>
-  APP_STAGING_NAME: <%= promptResults.directoryName %>-staging
+  APP_NAME: <%= appName %>
+  APP_STAGING_NAME: <%= appName %>-staging
   HICP_CLUSTER: eu-de-1
   HICP_PROJECT: devgate
   HICP_STAGING_CLUSTER: eu-de-1
   HICP_STAGING_PROJECT: devgate
   DOCKER_REGISTRY: docker-devgate-registry.vih.infineon.com
   CONTAINER_PORT: 8080
-  APP_URL: <%= promptResults.directoryName %>.icp.infineon.com
-  APP_STAGING_URL: <%= promptResults.directoryName %>-staging.icp.infineon.com
+  APP_URL: <%= appName %>.icp.infineon.com
+  APP_STAGING_URL: <%= appName %>-staging.icp.infineon.com
   ARGOCD_USER: admin
   HELM_REPO: https://artifactory.intra.infineon.com/artifactory/helm-des-spf-charts-local/
   HELM_CHART: spf-gitlab-cd

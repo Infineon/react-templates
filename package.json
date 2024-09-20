@@ -1,5 +1,5 @@
 {
-  "name": "@ifx/react-plugin-wds-pegasus-template",
+  "name": "@webdevelopment/react-cli-plugin-frontend-react-template-basic",
   "version": "1.0.0",
   "publishConfig": {
     "registry": "https://artifactory.intra.infineon.com/artifactory/api/npm/npm-tcp-ui-component-library-local/"
@@ -8,7 +8,7 @@
   "homepage": "",
   "main": "generator/index.js",
   "bin": {
-    "react-plugin-wds-pegasus-template": "./generator/index.js"
+    "react-cli-plugin-frontend-react-template-basic": "./generator/index.js"
   },
   "scripts": {
     "start": "node generator/index.js",
