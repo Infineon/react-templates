@@ -1,6 +1,6 @@
 {
   "name": "@webdevelopment/react-cli-plugin-frontend-react-template-basic",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publishConfig": {
     "registry": "https://artifactory.intra.infineon.com/artifactory/api/npm/npm-tcp-ui-component-library-local/"
   },
