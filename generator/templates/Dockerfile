@@ -8,7 +8,7 @@ RUN npm install -g http-server
 WORKDIR /app
 
 # copy both 'package.json' and 'package-lock.json' (if available)
-COPY package.json ./
+COPY package.json package-lock.json ./
 COPY .npmrc ./
 
 RUN npm install
@@ -20,4 +20,4 @@ COPY . .
 RUN npm run build
 
 EXPOSE 8080
-CMD [ "http-server", "-p", "8080", "dist" ]
+CMD [ "http-server", "-p", "8080", "build" ]

@@ -10,22 +10,16 @@
 
 ### Installation of React
 
+**With flag**
+
 ```bash
 npx --yes create-react-app@latest my-app 
 ```
 
-### Cloning of the React template repository
-
-**1. Paste this command in the terminal of your IDE**
+**Without flag**
 
 ```bash
-git clone https://gitlab.intra.infineon.com/ifx/devgate/devgate-dev/react-template.git
-```
-
-**2. Open the cloned template, and run the following command**
-
-```bash
-npm install
+npx create-react-app@latest my-app 
 ```
 
 ### Installation of the React template 
@@ -35,21 +29,23 @@ npm install
 **2. Open terminal, and run the following command**
 
 ```bash
-npm install <template-path>
-```
-**Note** 
-The template path would look something like this: 
-
-```bash
-C:\Users\Name\Desktop\folder\react_template\react-template
+npm install @webdevelopment/react-cli-plugin-frontend-react-template-basic
 ```
 
 ### Invocation of the React template 
 
 **After the Template has been installed, run the following command in the terminal to invoke the template**
 
+**With flag**
+
 ```bash
-npx @ifx/react-plugin-wds-pegasus-template 
+npx @webdevelopment/react-cli-plugin-frontend-react-template-basic -m "Horizontal Menu" -v "1.0.0" -a "No Authentication"
+```
+
+**Without flag**
+
+```bash
+npx @webdevelopment/react-cli-plugin-frontend-react-template-basic 
 ```
 
 ### Installation of dependencies
@@ -60,11 +56,23 @@ npx @ifx/react-plugin-wds-pegasus-template
 npm install
 ```
 
-### Using Authentication
+### Running the Template
 
-**1. Add your credentials in the .env file**
+**Without Authentication**
 
-**2. Start Docker**
+```bash
+npm run start
+```
 
-**3. Run the application**
+**With Authentication**
+
+1. Add your auth credentials in the .env file
+
+2. Start Docker
+
+3. Run the application
+
+```bash
+npm run start
+```
 

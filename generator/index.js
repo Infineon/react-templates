@@ -1,47 +1,52 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const path = require('path');
-const inquirer = require('inquirer');
 const ejs = require('ejs');
 const { consoleLogger } = require("../consoleLogger");
-const prompts = require('../prompts');
 const mkdirp = require('mkdirp');
+const getPromptResults = require('./promptResults');  
 
-// Updated function to copy directories and their contents
+
 function copyDirectory(src, dest, auth) {
   mkdirp.sync(dest);
   let entries = fs.readdirSync(src, { withFileTypes: true });
+  const appName = path.basename(process.cwd()); 
 
   entries.forEach(entry => {
     let srcPath = path.join(src, entry.name);
     let destPath = path.join(dest, entry.name);
 
-    if(auth === "No Authentication") {
-      if(entry.name === 'Dockerfile') { 
-        return;
-      }
+    if (entry.name === '.gitlab-ci.ejs' || entry.name === 'catalog-info.ejs') {
+      const template = fs.readFileSync(srcPath, 'utf8');
+      const renderedTemplate = ejs.render(template, { appName });
 
-      if(entry.name === 'craco.config.js') { 
-        return;
-      }
+      const baseName = path.basename(entry.name, '.ejs');
+      const targetPath = path.join(process.cwd(), `${baseName}.yaml`);
+
+      mkdirp.sync(path.dirname(targetPath));
+
+      fs.writeFileSync(targetPath, renderedTemplate);
+      return; 
+    }
+
+    if (auth === "No Authentication" && entry.name === 'craco.config.js') {
+      return;
     }
 
     if (entry.isDirectory()) {
-      copyDirectory(srcPath, destPath);
+      copyDirectory(srcPath, destPath, auth);
     } else if (path.extname(entry.name).toLowerCase() !== '.ejs') {
       fs.copyFileSync(srcPath, destPath);
     }
   });
 }
 
-inquirer.prompt(prompts).then((promptResults) => {
+getPromptResults().then((promptResults) => {
   consoleLogger(promptResults);
 
-    // This is for the other approach where I pass the prompResults to jsx.
     const configString = `export default ${JSON.stringify(promptResults)};`;
     const configPath = path.join(process.cwd(), 'src', 'config.js');
     fs.writeFileSync(configPath, configString);
-
 
   let dependencies = {
     "@infineon/infineon-design-system-react": "^23.4.2",
@@ -106,37 +111,29 @@ inquirer.prompt(prompts).then((promptResults) => {
 
   const componentsPath = path.resolve(__dirname, 'templates/src/components');
   processEjsTemplates(componentsPath, promptResults);
-
 });
 
 
 function processEjsTemplates(srcComponentsPath, promptResults) {
-
   const entries = fs.readdirSync(srcComponentsPath, { withFileTypes: true });
-
+  
   for (let entry of entries) {
     const fullPath = path.join(srcComponentsPath, entry.name);
 
     if (entry.isDirectory()) {
-      // Recursively process subdirectories
-   
       processEjsTemplates(fullPath, promptResults);
     
     } else if (path.extname(entry.name).toLowerCase() === '.ejs') {
-      // If the entry is an .ejs file
- 
       const template = fs.readFileSync(fullPath, 'utf8');
       const renderedTemplate = ejs.render(template, { promptResults });
 
-      // Get the base name of the template without the extension
-      const componentName = path.basename(entry.name, '.ejs');
+      const componentName = path.basename(entry.name, '.ejs' || entry.name.startsWith('.') );
       const targetDir = path.join(process.cwd(), 'src/components', componentName);
       const targetPath = path.join(targetDir, `${componentName}.jsx`);
 
       mkdirp.sync(targetDir);
       
       fs.writeFileSync(targetPath, renderedTemplate);
-    
     }
   }
 }
