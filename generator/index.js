@@ -21,7 +21,12 @@ function copyDirectory(src, dest, auth) {
       const renderedTemplate = ejs.render(template, { appName });
 
       const baseName = path.basename(entry.name, '.ejs');
-      const targetPath = path.join(process.cwd(), `${baseName}.yaml`);
+      let targetPath;
+      if(baseName === '.gitlab-ci') { 
+        targetPath = path.join(process.cwd(), `${baseName}.yml`);
+      } else { 
+        targetPath = path.join(process.cwd(), `${baseName}.yaml`);
+      }
 
       mkdirp.sync(path.dirname(targetPath));
 
