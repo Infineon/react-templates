@@ -1,31 +1,12 @@
 import { IfxNavbar, IfxNavbarItem, IfxSearchBar } from '@infineon/infineon-design-system-react';
-<% if (promptResults.authRequired !== "No Authentication") { %>
 import React, { useEffect, useState } from 'react';
 import { IfxNavbarProfile } from '@infineon/infineon-design-system-react';
-import { ShowToaster } from "../Toaster";
-import MIAMI from '@miami/miami' 
-<% } %>
 import './navbar.scss';
 
 function Navbar() {
-  <% if (promptResults.authRequired !== "No Authentication") { %>
+  
   const [userName, setUserName] = useState("");
   const [userNameShort, setUserNameShort] = useState("");
-  <% } %>
-  <% if (promptResults.authRequired !== "No Authentication") { %>
-  useEffect(() => {
-    MIAMI.getTokenPayload()
-    .then((payload) => {
-        const {firstName, lastName} = payload || {};
-        setUserName(`${firstName} ${lastName}`);
-        setUserNameShort(firstName[0] + lastName[0]);
-    })
-    .catch((error) => {
-      ShowToaster(error.message);
-    });
-  }, []);
-  <% } %>
-
 
   return (
     <IfxNavbar  show-logo-and-appname="false" application-name="Application name" fixed="false" logo-href="http://google.com" logo-href-target="_self">
@@ -78,9 +59,8 @@ function Navbar() {
         Right Item
         <IfxNavbarItem>Right Item</IfxNavbarItem>
       </IfxNavbarItem>
-      <% if(promptResults.authRequired !== "No Authentication") { %>
+    
       <IfxNavbarProfile user-name={userName} slot="right-item" image-url={userNameShort} show-label="true" href="" target="_blank"></IfxNavbarProfile>
-      <% } %>
     </IfxNavbar>
   );
 }

@@ -1,14 +1,14 @@
 {
-  "name": "@webdevelopment/react-cli-plugin-frontend-react-template-basic",
-  "version": "1.0.1",
+  "name": "@dds-templates/react-frontend-template",
+  "version": "1.0.0",
   "publishConfig": {
     "registry": "https://artifactory.intra.infineon.com/artifactory/api/npm/npm-tcp-ui-component-library-local/"
   },
-  "description": "React plugin developed as part of Pegasus UI template",
+  "description": "React plugin developed as part of DDS UI templates",
   "homepage": "",
   "main": "generator/index.js",
   "bin": {
-    "react-cli-plugin-frontend-react-template-basic": "./generator/index.js"
+    "react-frontend-template": "./generator/index.js"
   },
   "scripts": {
     "start": "node generator/index.js",
@@ -17,7 +17,6 @@
   "author": "Tihomir Yanchev",
   "license": "ISC",
   "dependencies": {
-    "ejs": "^3.1.10",
     "inquirer": "^7.3.3",
     "mkdirp": "^3.0.1",
     "yargs": "^17.7.2"

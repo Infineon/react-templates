@@ -1,10 +1,8 @@
-import Table from '../Table/Table';
-<% if(promptResults.isSideBarRequired === "Vertical Menu") { %>
-import Sidebar from '../Sidebar/Sidebar';
-<% } %>
-import Button from '../Button/Button';
+import Table from '../../../Table/Table';
+import Sidebar from '../../../Sidebar/Sidebar';
+import Button from '../../../Button/Button';
 import Navbar from '../Navbar/Navbar';
-import Card from '../Card/Card';
+import Card from '../../../Card/Card';
 import './homePage.scss';
 
 function HomePage() {
@@ -12,9 +10,7 @@ function HomePage() {
   return (
     <div className='container'>
       <div className="sidebar__wrapper">
-        <% if(promptResults.isSideBarRequired === "Vertical Menu") { %>
           <Sidebar /> 
-          <% } %>
       </div>
       <div className="right__side-wrapper">
         <div className="top__wrapper">
