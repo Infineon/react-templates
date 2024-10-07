@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.scss';
-import HomePage from './components/Layout/'
+import HomePage from './components/HomePage/HomePage'
 
 function App() {
   return (

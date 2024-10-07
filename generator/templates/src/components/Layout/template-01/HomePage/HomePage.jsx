@@ -1,8 +1,8 @@
-import Table from '../../../Table/Table';
-import Sidebar from '../../../Sidebar/Sidebar';
-import Button from '../../../Button/Button';
+import Table from '../Table/Table';
+import Sidebar from '../Sidebar/Sidebar';
+import Button from '../Button/Button';
 import Navbar from '../Navbar/Navbar';
-import Card from '../../../Card/Card';
+import Card from '../Card/Card';
 import './homePage.scss';
 
 function HomePage() {

@@ -1,7 +1,7 @@
-import Table from '../../../Table/Table';
-import Button from '../../../Button/Button';
+import Table from '../Table/Table';
+import Button from '../Button/Button';
 import Navbar from '../Navbar/Navbar';
-import Card from '../../../Card/Card';
+import Card from '../Card/Card';
 import './homePage.scss';
 
 function HomePage() {

@@ -4,23 +4,23 @@ const path = require('path');
 const mkdirp = require('mkdirp');
 const getPromptResults = require('./promptResults');  
 
-
 function copyDirectory(src, dest, templateName) {
-  mkdirp.sync(dest);
   let entries = fs.readdirSync(src, { withFileTypes: true });
 
   entries.forEach(entry => {
     let srcPath = path.join(src, entry.name);
     let destPath = path.join(dest, entry.name);
 
+    if(!srcPath.includes(`Layout`)) {
+      mkdirp.sync(dest);
+    }
+
     if (entry.isDirectory()) {
-      console.log('srcPath', srcPath)
 
       if(entry.name === 'Layout') { 
         copyDirectory(srcPath, destPath, templateName);
       }
-      if(srcPath.includes('Layout')) { 
-        console.log('contains layout')
+      if(srcPath.includes('Layout')) {
         if(srcPath.includes(`Layout\\${templateName}`)) { 
           copyDirectory(srcPath, destPath, templateName);
         }
@@ -28,16 +28,18 @@ function copyDirectory(src, dest, templateName) {
         copyDirectory(srcPath, destPath, templateName); 
       }
     } else {
+      if(srcPath.includes(`Layout\\${templateName}`)) { 
+        destPath = destPath.replace(`\\Layout\\${templateName}\\`, `\\`);
+        mkdirp.sync(path.dirname(destPath));
+      }
+
       fs.copyFileSync(srcPath, destPath);
     }
   });
 }
 
 getPromptResults().then((promptResults) => {
-    const configString = `export default ${JSON.stringify(promptResults)};`;
-    const currentWorkingDirectory = process.cwd();
-    const configPath = path.join(currentWorkingDirectory, 'src', 'config.js');
-    fs.writeFileSync(configPath, configString); //I don't need this. I can remove it!
+  const currentWorkingDirectory = process.cwd();
 
   let dependencies = {
     "@infineon/infineon-design-system-react": "^23.4.2",

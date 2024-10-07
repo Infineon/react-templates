@@ -1,9 +1,6 @@
 {
   "name": "@dds-templates/react-frontend-template",
   "version": "1.0.0",
-  "publishConfig": {
-    "registry": "https://artifactory.intra.infineon.com/artifactory/api/npm/npm-tcp-ui-component-library-local/"
-  },
   "description": "React plugin developed as part of DDS UI templates",
   "homepage": "",
   "main": "generator/index.js",
