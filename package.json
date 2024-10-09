@@ -7,6 +7,9 @@
   "bin": {
     "react-frontend-template": "./generator/index.js"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "start": "node generator/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
