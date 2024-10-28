@@ -1,3 +1,15 @@
+# v0.0.2 (Mon Oct 28 2024)
+
+#### ⚠️ Pushed to `main`
+
+- updated changelog ([@tishoyanchev](https://github.com/tishoyanchev))
+
+#### Authors: 1
+
+- Tisho Yanchev ([@tishoyanchev](https://github.com/tishoyanchev))
+
+---
+
 # v0.0.1 (Mon Oct 28 2024)
 
 #### ⚠️ Pushed to `main`
