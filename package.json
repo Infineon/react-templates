@@ -32,5 +32,11 @@
   },
   "devDependencies": {
     "shipit": "^1.2.0"
+  },
+  "auto": {
+    "plugins": [
+      "npm",
+      "released"
+    ]
   }
 }
