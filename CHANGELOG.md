@@ -55,11 +55,4 @@
 - Merge branch 'main' into 'test-branch' ([@shubhamsrivastavas02](https://github.com/shubhamsrivastavas02))
 - Update file README.md ([@shubhamsrivastavas02](https://github.com/shubhamsrivastavas02))
 
-#### Authors: 6
 
-- [@shubhamsrivastavas02](https://github.com/shubhamsrivastavas02)
-- badigersachi (SachinN.Badiger-EE@infineon.com)
-- Keerthi Kancharla Bhavani (DES DOS SW SWEX) (kancharlabhavani.keerthi@infineon.com)
-- Keerthi Kancharla Bhavani (DES DOS SW SWEX) (KancharlaBhavani.Keerthi@infineon.com)
-- Reez ([@reechang](https://github.com/reechang))
-- Tisho Yanchev ([@tishoyanchev](https://github.com/tishoyanchev))
