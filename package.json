@@ -1,11 +1,18 @@
 {
-  "name": "react-frontend-template",
-  "version": "1.0.3",
+  "name": "@infineon/react-templates",
+  "version": "1.0.4",
   "description": "React plugin developed as part of DDS UI templates",
-  "homepage": "",
+  "homepage": "https://github.com/infineon/react-templates#readme",
   "main": "generator/index.js",
   "bin": {
-    "react-frontend-template": "./generator/index.js"
+    "react-templates": "./generator/index.js"
+  },
+  "repository": {
+  "type": "git",
+  "url": "https://github.com/infineon/react-templates.git"
+  },
+  "bugs": {
+  "url": "https://github.com/infineon/react-templates/issues"
   },
   "publishConfig": {
     "access": "public"
