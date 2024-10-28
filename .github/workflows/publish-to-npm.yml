@@ -1,0 +1,25 @@
+name: Publish to npm
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Login to npm
+        uses: npm/login@v1
+        with:
+          username: ${{ secrets.NPM_USERNAME }}
+          password: ${{ secrets.NPM_PASSWORD }}
+
+      - name: Publish to npm
+        run: npm publish --access public
