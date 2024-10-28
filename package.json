@@ -8,11 +8,11 @@
     "react-templates": "./generator/index.js"
   },
   "repository": {
-  "type": "git",
-  "url": "https://github.com/infineon/react-templates.git"
+    "type": "git",
+    "url": "https://github.com/infineon/react-templates.git"
   },
   "bugs": {
-  "url": "https://github.com/infineon/react-templates/issues"
+    "url": "https://github.com/infineon/react-templates/issues"
   },
   "publishConfig": {
     "access": "public"
@@ -27,5 +27,8 @@
     "inquirer": "^7.3.3",
     "mkdirp": "^3.0.1",
     "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "shipit": "^1.2.0"
   }
 }
