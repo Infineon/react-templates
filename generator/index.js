@@ -21,18 +21,17 @@ function copyDirectory(src, dest, templateName) {
         copyDirectory(srcPath, destPath, templateName);
       }
       if(srcPath.includes('Layout')) {
-        if(srcPath.includes(`Layout\\${templateName}`)) { 
+        if(srcPath.includes(`Layout${path.sep}${templateName}`)) { 
           copyDirectory(srcPath, destPath, templateName);
         }
       } else { 
         copyDirectory(srcPath, destPath, templateName); 
       }
     } else {
-      if(srcPath.includes(`Layout\\${templateName}`)) { 
-        destPath = destPath.replace(`\\Layout\\${templateName}\\`, `\\`);
+      if(srcPath.includes(`Layout${path.sep}${templateName}`)) { 
+        destPath = destPath.replace(`${path.sep}Layout${path.sep}${templateName}${path.sep}`, `${path.sep}`);
         mkdirp.sync(path.dirname(destPath));
       }
-
       fs.copyFileSync(srcPath, destPath);
     }
   });

@@ -1,6 +1,6 @@
 {
-  "name": "@dds-templates/react-frontend-template",
-  "version": "1.0.0",
+  "name": "react-frontend-template",
+  "version": "1.0.3",
   "description": "React plugin developed as part of DDS UI templates",
   "homepage": "",
   "main": "generator/index.js",
