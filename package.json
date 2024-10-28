@@ -1,6 +1,7 @@
 {
   "name": "@infineon/react-templates",
   "version": "1.0.5",
+  "private": false,
   "description": "React plugin developed as part of DDS UI templates",
   "homepage": "https://github.com/infineon/react-templates#readme",
   "main": "generator/index.js",
@@ -19,7 +20,8 @@
   },
   "scripts": {
     "start": "node generator/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "shipit": "shipit"
   },
   "author": "Tihomir Yanchev",
   "license": "ISC",
