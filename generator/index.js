@@ -41,7 +41,7 @@ getPromptResults().then((promptResults) => {
   const currentWorkingDirectory = process.cwd();
 
   let dependencies = {
-    "@infineon/infineon-design-system-react": "^23.4.2",
+    "@infineon/infineon-design-system-react": "^27.6.0",
     "react-router": "^6.23.1",
     "react-router-dom": "^6.23.1",
     "sass": "^1.77.6",
