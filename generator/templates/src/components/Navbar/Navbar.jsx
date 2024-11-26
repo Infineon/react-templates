@@ -1,15 +1,15 @@
 import { IfxNavbar, IfxNavbarItem, IfxSearchBar } from '@infineon/infineon-design-system-react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { IfxNavbarProfile } from '@infineon/infineon-design-system-react';
 import './navbar.scss';
 
 function Navbar() {
   
-  const [userName, setUserName] = useState("");
-  const [userNameShort, setUserNameShort] = useState("");
+  const [userName] = useState("");
+  const [userNameShort] = useState("");
 
   return (
-    <IfxNavbar  show-logo-and-appname="false" application-name="Application name" fixed="false" logo-href="http://google.com" logo-href-target="_self">
+    <IfxNavbar  show-logo-and-appname="true" application-name="Application name" fixed="false" logo-href="http://google.com" logo-href-target="_self">
       <IfxNavbarItem target="_blank" slot="left-item" icon="" show-label="true" >
         Menu Item 1
         <IfxNavbarItem icon="calendar16">
@@ -52,13 +52,11 @@ function Navbar() {
   
       <IfxSearchBar slot="search-bar-left" is-open="false"></IfxSearchBar>
   
-      <IfxNavbarItem slot="right-item" target="_blank" href="http://google.com" hide-on-mobile="true" show-label="true" icon="image-16">
-        Right Item
+      <IfxNavbarItem slot="right-item" target="_blank" href="http://google.com" hide-on-mobile="true" show-label="true" icon="bell-16"></IfxNavbarItem>
+      <IfxNavbarItem slot="right-item" hide-on-mobile="true" show-label='true' icon="cart-16">
+        Label
       </IfxNavbarItem>
-      <IfxNavbarItem slot="right-item" hide-on-mobile="true" show-label='true' icon="image-16">
-        Right Item
-        <IfxNavbarItem>Right Item</IfxNavbarItem>
-      </IfxNavbarItem>
+      <IfxNavbarItem slot="right-item" hide-on-mobile="true" show-label='true' icon="globe-16"></IfxNavbarItem>
     
       <IfxNavbarProfile user-name={userName} slot="right-item" image-url={userNameShort} show-label="true" href="" target="_blank"></IfxNavbarProfile>
     </IfxNavbar>
