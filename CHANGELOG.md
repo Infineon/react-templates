@@ -1,3 +1,16 @@
+# v1.0.9 (Tue Nov 26 2024)
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'main' of https://github.com/Infineon/react-templates ([@tishoyanchev](https://github.com/tishoyanchev))
+- updated template 1 stylesheet ([@tishoyanchev](https://github.com/tishoyanchev))
+
+#### Authors: 1
+
+- Tisho Yanchev ([@tishoyanchev](https://github.com/tishoyanchev))
+
+---
+
 # v1.0.8 (Tue Nov 26 2024)
 
 #### ⚠️ Pushed to `main`
