@@ -1,3 +1,16 @@
+# v1.0.8 (Tue Nov 26 2024)
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'main' of https://github.com/Infineon/react-templates ([@tishoyanchev](https://github.com/tishoyanchev))
+- created table template ([@tishoyanchev](https://github.com/tishoyanchev))
+
+#### Authors: 1
+
+- Tisho Yanchev ([@tishoyanchev](https://github.com/tishoyanchev))
+
+---
+
 # v1.0.7 (Thu Nov 21 2024)
 
 #### ⚠️ Pushed to `main`
