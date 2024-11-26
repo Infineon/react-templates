@@ -1,6 +1,6 @@
 {
   "name": "@infineon/react-templates",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "private": false,
   "description": "React plugin developed as part of DDS UI templates",
   "homepage": "https://github.com/infineon/react-templates#readme",
