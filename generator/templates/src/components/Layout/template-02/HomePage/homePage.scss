@@ -7,9 +7,7 @@
 }
 
 .container { 
-  font-family: tokens.$ifxFontFamilyBody;
-  background-color: tokens.$ifxColorBaseWhite;
-
+  
   & .main__wrapper { 
     display: flex;
     align-items: center;
@@ -55,7 +53,7 @@
   
             & .section__title-wrapper { 
               color: tokens.$ifxColorBaseBlack;
-              font-size: tokens.$ifxSize450;
+              font-size: tokens.$ifxSize300;
               font-style: normal;
               font-weight: tokens.$ifxFontWeightSemibold;
               line-height: tokens.$ifxSize400; 
@@ -112,3 +110,71 @@
   }
 }
 
+@media screen and (min-width: 768px) { 
+  .container { 
+    & .main__wrapper { 
+      & .stepper__wrapper { 
+        width: tokens.$ifxSize6000;
+        padding: tokens.$ifxSpace200 0;
+      }
+      & .content__wrapper { 
+        & .form__wrapper { 
+          & .section__wrapper { 
+            & .section { 
+              & .input__fields-wrapper { 
+                width: 696px;
+                & .date__picker-wrapper { 
+                  & .date__picker { 
+                    width: 336px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) { 
+  .container { 
+    & .main__wrapper { 
+      .stepper__wrapper { 
+        display: flex;
+        justify-content: flex-start;
+        width: 336px;
+        padding: tokens.$ifxSpace500 tokens.$ifxSpace200 tokens.$ifxSpace200 0;
+        & .stepper { 
+          width: 180px;
+        }
+      }
+      & .content__wrapper { 
+        & .form__wrapper { 
+          & .tittle__wrapper { 
+            font-size: 26px;
+            line-height: tokens.$ifxSize450;
+          }
+          & .section__wrapper { 
+            & .section { 
+              width: 100%;
+              & .input__fields-wrapper { 
+                width: 100%;
+                gap: tokens.$ifxSpace150;
+                & .text__fields-wrapper { 
+                  flex-direction: column;
+                  gap: tokens.$ifxSpace150;
+                }
+                & .date__picker-wrapper { 
+                  & .date__picker { 
+                    width: 100%;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

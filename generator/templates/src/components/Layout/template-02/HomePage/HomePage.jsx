@@ -6,6 +6,7 @@ import RadioButton from '../RadioButton/RadioButton';
 import DatePicker from '../DatePicker/DatePicker';
 import './homePage.scss';
 
+
 function HomePage() {
 
   return (
@@ -16,7 +17,9 @@ function HomePage() {
       <div className="main__wrapper">
 
         <div className="stepper__wrapper">
-          <Stepper activeStep={1} showStepNumber={false} variant="default" />
+          <div className="stepper">
+            <Stepper activeStep={1} showStepNumber={false} variant="default" />
+          </div>
         </div>
 
         <div className="content__wrapper">
