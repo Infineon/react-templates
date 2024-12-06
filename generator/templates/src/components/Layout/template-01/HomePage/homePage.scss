@@ -8,7 +8,7 @@
 }
 
 .main__table-template-wrapper { 
-  padding: 0 tokens.$ifxSpace1500;
+  padding: 0 tokens.$ifxSpace400;
   display: flex;
   flex-direction: column;
   gap: tokens.$ifxSpace300;
@@ -28,5 +28,11 @@
   & .pagination__wrapper { 
     display: flex;
     justify-content: flex-end;
+  }
+}
+
+@media screen and (min-width: 1440px) { 
+  .main__table-template-wrapper { 
+    padding: 0 tokens.$ifxSpace1500;
   }
 }
