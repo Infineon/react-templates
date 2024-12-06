@@ -19,7 +19,7 @@ function HomePage() {
       <div className="navbar__wrapper">
         <Navbar />
       </div>
-      <div className="main__wrapper">
+      <div className="main__table-template-wrapper">
         <div className="table__wrapper">
           <div className="table__desc">
             <h2>Table name</h2>

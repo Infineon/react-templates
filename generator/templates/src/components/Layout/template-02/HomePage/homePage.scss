@@ -8,10 +8,11 @@
 
 .container { 
   
-  & .main__wrapper { 
+  & .main__wizard-template-wrapper { 
     display: flex;
     align-items: center;
     flex-direction: column;
+    background-color: tokens.$ifxColorEngineering100;
 
     & .stepper__wrapper { 
       width: tokens.$ifxSize6000;
@@ -112,7 +113,7 @@
 
 @media screen and (min-width: 768px) { 
   .container { 
-    & .main__wrapper { 
+    & .main__wizard-template-wrapper { 
       & .stepper__wrapper { 
         width: tokens.$ifxSize6000;
         padding: tokens.$ifxSpace200 0;
@@ -139,7 +140,7 @@
 
 @media screen and (max-width: 768px) { 
   .container { 
-    & .main__wrapper { 
+    & .main__wizard-template-wrapper { 
       .stepper__wrapper { 
         display: flex;
         justify-content: flex-start;

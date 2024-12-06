@@ -14,7 +14,7 @@ function HomePage() {
       <div className="navbar__wrapper">
         <Navbar />
       </div>
-      <div className="main__wrapper">
+      <div className="main__wizard-template-wrapper">
 
         <div className="stepper__wrapper">
           <div className="stepper">
