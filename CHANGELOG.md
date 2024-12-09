@@ -1,3 +1,17 @@
+# v1.0.13 (Fri Dec 06 2024)
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'main' of https://github.com/Infineon/react-templates ([@tishoyanchev](https://github.com/tishoyanchev))
+- added mobile responsiveness to template 1 ([@tishoyanchev](https://github.com/tishoyanchev))
+- removed bg color on global level and renamed common classes to differentiate between the two templates ([@tishoyanchev](https://github.com/tishoyanchev))
+
+#### Authors: 1
+
+- Tisho Yanchev ([@tishoyanchev](https://github.com/tishoyanchev))
+
+---
+
 # v1.0.12 (Wed Dec 04 2024)
 
 #### ⚠️ Pushed to `main`
